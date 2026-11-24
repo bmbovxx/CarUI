@@ -58,8 +58,8 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 #ss svg{width:600px;height:600px}
 .ib{width:84px;height:84px;flex:none;border:0;border-radius:22px;background:var(--card);color:var(--tx);display:flex;align-items:center;justify-content:center;font-size:46px}
 .ib svg{width:44px;height:44px;fill:currentColor}.ib:active{transform:scale(.94)}
-#ap{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
-#ap.on{display:flex}
+#apw{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
+#apw.on{display:flex}
 .aph{display:flex;align-items:center;justify-content:space-between;font-size:36px;font-weight:700;margin-bottom:20px}
 .aph button{border:0;background:var(--card);color:var(--tx);height:72px;padding:0 36px;border-radius:22px;font-size:26px}
 #ag{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-content:start}
@@ -132,7 +132,7 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
   <button class="ib" id="appb"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></button>
   <button class="ib" id="setb">&#9881;</button>
 </footer>
-<div id="ap"><div class="aph"><span>التطبيقات</span><button id="apc">إغلاق ✕</button></div><div id="ag"></div></div>
+<div id="apw"><div class="aph"><span>التطبيقات</span><button id="apc">إغلاق ✕</button></div><div id="ag"></div></div>
 <div id="ss"><svg viewBox="-100 -100 200 200"><circle r="96" fill="none" stroke="#2a2f3a" stroke-width="2"/><g id="tk" stroke="#8b97ad"></g><line id="hh" y2="-48" stroke="#f2f5fa" stroke-width="5" stroke-linecap="round"/><line id="mh" y2="-72" stroke="#f2f5fa" stroke-width="3.5" stroke-linecap="round"/><line id="sh" y1="14" y2="-80" stroke="#3ea6ff" stroke-width="1.5"/><circle r="4" fill="#3ea6ff"/></svg></div>
 </div>
 <script>
@@ -174,15 +174,15 @@ function esc(t){return t.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&
 $('appb').onclick=function(){
   var g=$('ag');
   g.innerHTML='<p class="msg">جارٍ التحميل...</p>';
-  $('ap').classList.add('on');
+  $('apw').classList.add('on');
   setTimeout(function(){
     var list=[];
     try{list=JSON.parse(window.Android.apps())}catch(e){g.innerHTML='<p class="msg">'+(window.Android?'تعذر تحميل التطبيقات':'هذه الميزة تعمل داخل تطبيق الأندرويد فقط')+'</p>';return}
     if(!list.length){g.innerHTML='<p class="msg">لم يتم العثور على تطبيقات</p>';return}
     g.innerHTML=list.map(function(a){return '<button class="app" data-p="'+esc(a.p)+'"><img src="data:image/png;base64,'+a.i+'"><span>'+esc(a.n)+'</span></button>'}).join('')
   },50)};
-$('ag').onclick=function(e){var b=e.target.closest('.app');if(b){window.Android.launch(b.dataset.p);$('ap').classList.remove('on')}};
-$('apc').onclick=function(){$('ap').classList.remove('on')};
+$('ag').onclick=function(e){var b=e.target.closest('.app');if(b){window.Android.launch(b.dataset.p);$('apw').classList.remove('on')}};
+$('apc').onclick=function(){$('apw').classList.remove('on')};
 $('setb').onclick=function(){try{window.Android.settings()}catch(e){}};
 if(window.Android&&Android.loc){(function(){
 var M=[],mes=[],pos=[24.7136,46.6753],follow=true,fix=false,dest=null,line=null,fm,mq=document.querySelector('#map .map');
