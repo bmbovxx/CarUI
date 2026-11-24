@@ -19,7 +19,7 @@ main{flex:1;padding:24px 40px;min-height:0}
 .pane{display:none;height:100%}.pane.on{display:flex}
 footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;border-top:1px solid #1f2940;background:#0e1420}
 .tabs{display:flex;gap:16px}
-.tab{width:190px;height:84px;border:0;border-radius:22px;background:var(--card);color:var(--mu);font-size:26px;display:flex;align-items:center;justify-content:center;gap:12px}
+.tab{width:175px;height:84px;border:0;border-radius:22px;background:var(--card);color:var(--mu);font-size:26px;display:flex;align-items:center;justify-content:center;gap:12px}
 .tab.on{background:var(--ac);color:#04111f;font-weight:700}
 .vol{flex:1;display:flex;align-items:center;gap:18px;direction:ltr}
 .vol button{border:0;background:var(--card);color:var(--tx);width:72px;height:72px;border-radius:50%;font-size:32px}
@@ -30,12 +30,12 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 .media{gap:24px;width:100%}
 .mc{width:560px;flex:none;background:var(--card);border-radius:28px;padding:26px;display:flex;flex-direction:column;justify-content:space-between}
 .mc .top{display:flex;gap:22px;align-items:center}
-.art{width:120px;height:120px;flex:none;border-radius:24px;background:linear-gradient(135deg,#3ea6ff,#7a5cff);display:flex;align-items:center;justify-content:center;font-size:56px}
+.art{width:150px;height:150px;flex:none;border-radius:24px;background:linear-gradient(135deg,#3ea6ff,#7a5cff);display:flex;align-items:center;justify-content:center;font-size:56px}
 .mc h2{font-size:34px}.mc p{font-size:22px;color:var(--mu);margin-top:6px}
 .mc .src{margin-top:0}
 .mini{flex:1;position:relative;border-radius:28px;overflow:hidden;background:#101a2b}.mini svg{width:100%;height:100%}.mini .search,.mini .fab{display:none}
 .mini::after{content:"اضغط لفتح الخريطة";position:absolute;bottom:16px;right:16px;background:rgba(21,28,42,.9);padding:10px 20px;border-radius:16px;font-size:20px;color:var(--mu)}
-.bar{height:10px;border-radius:6px;background:var(--card2);overflow:hidden;direction:ltr}.bar i{display:block;height:100%;width:35%;background:var(--ac)}
+.bar{height:18px;cursor:pointer;border-radius:9px;background:var(--card2);overflow:hidden;direction:ltr}.bar i{display:block;height:100%;width:35%;background:var(--ac)}
 .ctl{display:flex;gap:18px;justify-content:center;direction:ltr}
 .ctl button{border:0;background:var(--card2);color:var(--tx);width:100px;height:88px;border-radius:22px;display:flex;align-items:center;justify-content:center;transition:transform .1s}
 .ctl button:active{transform:scale(.94)}
@@ -52,10 +52,29 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 .map svg{width:100%;height:100%}
 .search{position:absolute;top:18px;right:18px;left:18px;height:72px;border-radius:36px;background:rgba(21,28,42,.95);display:flex;align-items:center;padding:0 28px;font-size:26px;color:var(--mu)}
 .fab{position:absolute;bottom:22px;left:22px;width:84px;height:84px;border-radius:50%;background:var(--ac);color:#04111f;font-size:40px;display:flex;align-items:center;justify-content:center}
-#ssb{font-size:23px}
+#ssb{font-size:20px}
 #ss{position:absolute;inset:0;background:#000;z-index:99;display:none;align-items:center;justify-content:center}
 #ss.on{display:flex}
 #ss svg{width:600px;height:600px}
+.ib{width:84px;height:84px;flex:none;border:0;border-radius:22px;background:var(--card);color:var(--tx);display:flex;align-items:center;justify-content:center;font-size:46px}
+.ib svg{width:44px;height:44px;fill:currentColor}.ib:active{transform:scale(.94)}
+#ap{position:absolute;inset:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
+#ap.on{display:flex}
+.aph{display:flex;align-items:center;justify-content:space-between;font-size:36px;font-weight:700;margin-bottom:20px}
+.aph button{border:0;background:var(--card);color:var(--tx);height:72px;padding:0 36px;border-radius:22px;font-size:26px}
+#ag{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-content:start}
+.app{background:var(--card);border-radius:24px;padding:18px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;border:0;color:var(--tx);font-size:20px}
+.app img{width:72px;height:72px;border-radius:16px}
+.app span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini::after{z-index:1000}
+.search,.fab{z-index:1000}
+.search{gap:12px}
+.qi{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--tx);font-size:26px}
+.go{border:0;background:var(--ac);color:#04111f;height:52px;padding:0 24px;border-radius:26px;font-size:22px;font-weight:700}
+.fab2{background:var(--card2);color:var(--tx);bottom:120px;font-size:36px}
+.chip{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(21,28,42,.95);padding:16px 32px;border-radius:24px;font-size:28px;white-space:nowrap}
+.tm{display:flex;justify-content:space-between;direction:ltr;color:var(--mu);font-size:20px;margin-top:8px}
+.mc .top{cursor:pointer}
 </style>
 </head>
 <body>
@@ -69,7 +88,7 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
   <section class="pane media on" id="media">
     <div class="mc">
       <div class="top"><div class="art">🎵</div><div><h2>اسم المقطع الحالي</h2><p>اسم الفنان · الألبوم</p></div></div>
-      <div class="bar"><i></i></div>
+      <div><div class="bar"><i></i></div><div class="tm"><span id="tc">0:00</span><span id="td">0:00</span></div></div>
       <div class="ctl">
         <button><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12L18 18V6z"/></svg></button>
         <button class="pl" id="pl"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
@@ -106,7 +125,10 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
     <input type="range" id="v" min="0" max="100" value="50">
     <output id="vo">50</output>
   </div>
+  <button class="ib" id="appb"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></button>
+  <button class="ib" id="setb">&#9881;</button>
 </footer>
+<div id="ap"><div class="aph"><span>التطبيقات</span><button id="apc">إغلاق ✕</button></div><div id="ag"></div></div>
 <div id="ss"><svg viewBox="-100 -100 200 200"><circle r="96" fill="none" stroke="#2a2f3a" stroke-width="2"/><g id="tk" stroke="#8b97ad"></g><line id="hh" y2="-48" stroke="#f2f5fa" stroke-width="5" stroke-linecap="round"/><line id="mh" y2="-72" stroke="#f2f5fa" stroke-width="3.5" stroke-linecap="round"/><line id="sh" y1="14" y2="-80" stroke="#3ea6ff" stroke-width="1.5"/><circle r="4" fill="#3ea6ff"/></svg></div>
 </div>
 <script>
@@ -144,6 +166,81 @@ function hands(){var n=new Date(),s=n.getSeconds(),m=n.getMinutes()+s/60,h=n.get
 hands();setInterval(hands,1000);
 $('ssb').onclick=function(){$('ss').classList.add('on')};
 $('ss').onclick=function(){this.classList.remove('on')};
+function esc(t){return t.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+$('appb').onclick=function(){
+  var g=$('ag'),list=[];
+  try{list=JSON.parse(window.Android.apps())}catch(e){g.innerHTML='<p style="grid-column:1/-1;font-size:26px;color:var(--mu)">هذه الميزة تعمل داخل تطبيق الأندرويد فقط</p>'}
+  if(list.length){g.innerHTML=list.map(function(a){return '<button class="app" data-p="'+esc(a.p)+'"><img src="data:image/png;base64,'+a.i+'"><span>'+esc(a.n)+'</span></button>'}).join('')}
+  $('ap').classList.add('on')};
+$('ag').onclick=function(e){var b=e.target.closest('.app');if(b){window.Android.launch(b.dataset.p);$('ap').classList.remove('on')}};
+$('apc').onclick=function(){$('ap').classList.remove('on')};
+$('setb').onclick=function(){try{window.Android.settings()}catch(e){}};
+if(window.Android&&Android.loc){(function(){
+var M=[],mes=[],pos=[24.7136,46.6753],follow=true,fix=false,dest=null,line=null,fm,mq=document.querySelector('#map .map');
+function ld(t,u,f){var e=document.createElement(t);if(t=='link'){e.rel='stylesheet';e.href=u}else{e.src=u;e.onload=f}document.head.appendChild(e)}
+ld('link','https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css');
+ld('script','https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',init);
+function mk(el,full){
+ var m=L.map(el,{zoomControl:false,attributionControl:false,dragging:full,touchZoom:full,doubleClickZoom:full,scrollWheelZoom:false,boxZoom:false,keyboard:false}).setView(pos,full?16:15);
+ var T='https://server.arcgisonline.com/ArcGIS/rest/services/';
+ L.tileLayer(T+'World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
+ L.tileLayer(T+'Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
+ L.tileLayer(T+'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
+ mes.push(L.circleMarker(pos,{radius:9,color:'#fff',weight:3,fillColor:'#3ea6ff',fillOpacity:1}).addTo(m));
+ M.push(m);return m}
+function init(){
+ var mm=$('mm');mm.innerHTML='';mk(mm,false);
+ mq.querySelector('svg').style.display='none';
+ var d=document.createElement('div');d.style.cssText='position:absolute;inset:0';mq.insertBefore(d,mq.firstChild);
+ fm=mk(d,true);fm.on('dragstart',function(){follow=false});
+ var rt=document.createElement('div');rt.className='chip';rt.style.display='none';mq.appendChild(rt);
+ function say(t){rt.textContent=t;rt.style.display='block'}
+ function find(q){if(!q)return;
+  if(!fix){say('بانتظار إشارة GPS...');return}
+  fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(q)).then(function(r){return r.json()}).then(function(j){
+   if(!j.length){say('لم يتم العثور على الوجهة');return}
+   dest=[+j[0].lat,+j[0].lon];
+   return fetch('https://router.project-osrm.org/route/v1/driving/'+pos[1]+','+pos[0]+';'+dest[1]+','+dest[0]+'?overview=full&geometries=geojson').then(function(r){return r.json()}).then(function(o){
+    var r=o.routes[0],c=r.geometry.coordinates.map(function(p){return[p[1],p[0]]});
+    if(line)fm.removeLayer(line);
+    line=L.polyline(c,{color:'#3ea6ff',weight:7}).addTo(fm);
+    follow=false;fm.fitBounds(line.getBounds(),{padding:[120,120]});
+    say((r.distance/1000).toFixed(1)+' كم · '+Math.round(r.duration/60)+' دقيقة')})
+  }).catch(function(){say('تعذر الاتصال بالإنترنت')})}
+ var s=mq.querySelector('.search');
+ s.innerHTML='🔍<input class="qi" placeholder="ابحث عن وجهة..."><button class="go">بحث</button>';
+ var qi=s.querySelector('.qi');
+ s.querySelector('.go').onclick=function(){find(qi.value)};
+ qi.onkeydown=function(e){if(e.key=='Enter')find(qi.value)};
+ var f2=document.createElement('div');f2.className='fab fab2';f2.textContent='📍';
+ f2.onclick=function(){follow=true;fm.setView(pos,16)};mq.appendChild(f2);
+ [['+',1,22],['−',-1,120]].forEach(function(z){var b=document.createElement('div');b.className='fab fab2';b.style.cssText='left:auto;right:22px;bottom:'+z[2]+'px';b.textContent=z[0];b.onclick=function(){fm.zoomBy(z[1])};mq.appendChild(b)});
+ mq.querySelector('.fab').onclick=function(){if(dest)Android.navigate(String(dest[0]),String(dest[1]))};
+ setInterval(function(){var r=Android.loc();if(r){var a=r.split(',');fix=true;pos=[+a[0],+a[1]];mes.forEach(function(x){x.setLatLng(pos)});M[0].setView(pos);if(follow)fm.setView(pos)}},2000);
+ document.addEventListener('click',function(){setTimeout(function(){M.forEach(function(x){x.invalidateSize()})},80)});
+}
+})()}
+if(window.Android&&Android.media){(function(){
+var T=document.querySelector('.mc h2'),A=document.querySelector('.mc .top p'),art=document.querySelector('.mc .art'),bw=document.querySelector('.mc .bar'),bi=bw.firstChild,tc=$('tc'),td=$('td'),b=document.querySelectorAll('.ctl button'),pl=$('pl'),k='',st='',dur=0,lp=null;
+function f(ms){var x=Math.max(0,Math.floor(ms/1000));return Math.floor(x/60)+':'+('0'+x%60).slice(-2)}
+function ic(p){return '<svg viewBox="0 0 24 24"><path d="'+(p?'M6 5h4v14H6zM14 5h4v14h-4z':'M8 5v14l11-7z')+'"/></svg>'}
+b[0].onclick=function(){Android.mediaCmd('prev')};
+b[2].onclick=function(){Android.mediaCmd('next')};
+pl.onclick=function(){Android.mediaCmd('toggle')};
+bw.onclick=function(e){if(dur){var r=bw.getBoundingClientRect();Android.mediaSeek(String(Math.round(dur*(e.clientX-r.left)/r.width)))}};
+document.querySelector('.mc .top').onclick=function(){if(st=='noaccess')Android.notifSettings()};
+function reset(){art.style.backgroundImage='';art.textContent='🎵';bi.style.width='0';tc.textContent=td.textContent='0:00';dur=0;k=''}
+setInterval(function(){
+ var m;try{m=JSON.parse(Android.media())}catch(e){return}
+ st=m.s;
+ if(m.s=='noaccess'){T.textContent='فعّل التحكم بالوسائط';A.textContent='اضغط هنا وفعّل «واجهة السيارة» في الوصول إلى الإشعارات';reset();return}
+ if(m.s!='ok'){T.textContent='لا توجد وسائط قيد التشغيل';A.textContent='شغّل أغنية من سبوتيفاي أو أي تطبيق';reset();return}
+ T.textContent=m.t||'بدون عنوان';A.textContent=m.a||'';
+ if(m.k!=k){k=m.k;var a=Android.mediaArt();if(a){art.style.backgroundImage='url(data:image/jpeg;base64,'+a+')';art.style.backgroundSize='cover';art.textContent=''}else{art.style.backgroundImage='';art.textContent='🎵'}}
+ dur=m.d;bi.style.width=(dur?Math.min(100,m.p*100/dur):0)+'%';tc.textContent=f(m.p);td.textContent=f(dur);
+ if(m.pl!==lp){lp=m.pl;pl.innerHTML=ic(m.pl)}
+},1000);
+})()}
 </script>
 </body>
 </html>
