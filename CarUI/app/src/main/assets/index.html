@@ -55,7 +55,21 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 #ssb{font-size:20px}
 #ss{position:absolute;top:0;right:0;bottom:0;left:0;background:#000;z-index:99;display:none;align-items:center;justify-content:center}
 #ss.on{display:flex}
-#ss svg{width:600px;height:600px}
+#ss .clk{width:420px;height:420px}
+.ssw{display:flex;align-items:center;justify-content:center;gap:70px;transition:transform 60s linear}
+.ssc{text-align:center}.ssc div{margin-top:12px;font-size:26px;color:#6f6a60}
+.ssm{width:480px;background:#0d0d0d;border:1px solid #222;border-radius:28px;padding:28px;display:none;direction:rtl}
+.ssm.on{display:block}
+.sst{display:flex;gap:22px;align-items:center}
+.ssa{width:130px;height:130px;flex:none;border-radius:20px;background:#2b2742 center/cover;display:flex;align-items:center;justify-content:center;font-size:56px;color:#7d77a3;filter:brightness(.75)}
+.ssm h3{font-size:30px;font-weight:600;color:#e4ded0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ssm p{font-size:22px;color:#8a857a;margin-top:6px}
+.ssb{height:8px;background:#262626;border-radius:4px;overflow:hidden;direction:ltr;margin-top:24px}.ssb i{display:block;height:100%;width:0;background:#b8894a}
+.sstm{display:flex;justify-content:space-between;direction:ltr;font-size:20px;color:#6f6a60;margin-top:8px}
+.ssk{display:flex;justify-content:center;gap:16px;direction:ltr;margin-top:18px}
+.ssk button{border:0;background:#1a1a1a;color:#bdb7a9;width:96px;height:72px;border-radius:20px;display:flex;align-items:center;justify-content:center}
+.ssk button.p{background:#3a2f1f;color:#e0b574;width:130px}
+.ssk svg{width:36px;height:36px;fill:currentColor}
 .ib{width:84px;height:84px;flex:none;border:0;border-radius:22px;background:var(--card);color:var(--tx);display:flex;align-items:center;justify-content:center;font-size:46px}
 .ib svg{width:44px;height:44px;fill:currentColor}.ib:active{transform:scale(.94)}
 #apw{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
@@ -133,7 +147,12 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
   <button class="ib" id="setb">&#9881;</button>
 </footer>
 <div id="apw"><div class="aph"><span>التطبيقات</span><button id="apc">إغلاق ✕</button></div><div id="ag"></div></div>
-<div id="ss"><svg viewBox="-100 -100 200 200"><circle r="96" fill="none" stroke="#2a2f3a" stroke-width="2"/><g id="tk" stroke="#8b97ad"></g><line id="hh" y2="-48" stroke="#f2f5fa" stroke-width="5" stroke-linecap="round"/><line id="mh" y2="-72" stroke="#f2f5fa" stroke-width="3.5" stroke-linecap="round"/><line id="sh" y1="14" y2="-80" stroke="#3ea6ff" stroke-width="1.5"/><circle r="4" fill="#3ea6ff"/></svg></div>
+<div id="ss"><div class="ssw" id="ssw">
+<div class="ssc"><svg class="clk" viewBox="-100 -100 200 200"><circle r="94" fill="none" stroke="#262626" stroke-width="2"/><g id="tk" stroke="#5a554c"></g><line id="hh" y2="-46" stroke="#d8d2c4" stroke-width="6" stroke-linecap="round"/><line id="mh" y2="-68" stroke="#d8d2c4" stroke-width="4" stroke-linecap="round"/><line id="sh" y1="16" y2="-72" stroke="#b8894a" stroke-width="2"/><circle r="5" fill="#b8894a"/></svg><div id="ssd"></div></div>
+<div class="ssm" id="ssm"><div class="sst"><div class="ssa" id="ssa">🎵</div><div style="min-width:0"><h3 id="sst1"></h3><p id="ssp"></p></div></div>
+<div class="ssb"><i id="ssi"></i></div><div class="sstm"><span id="sstc">0:00</span><span id="sstd">0:00</span></div>
+<div class="ssk"><button id="ssprev"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12L18 18V6z"/></svg></button><button class="p" id="sspl"><svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><button id="ssnext"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM14.5 12L6 6v12z"/></svg></button></div></div>
+</div></div>
 </div>
 <script>
 var $=function(i){return document.getElementById(i)};
@@ -257,6 +276,33 @@ v.addEventListener('input',function(){drag=true;Android.setVol(+v.value)});
 $('mute').onclick=function(){if(+v.value){last=v.value;v.value=0}else v.value=last||50;setV();Android.setVol(+v.value)};
 setInterval(function(){if(drag)return;var x=Android.getVol();if(x>=0&&x!=+v.value){v.value=x;setV()}},400);
 })()}
+(function(){
+var card=$('ssm'),ak='',lp=null;
+function fm(ms){var x=Math.max(0,Math.floor(ms/1000));return Math.floor(x/60)+':'+('0'+x%60).slice(-2)}
+function ic(p){return '<svg viewBox="0 0 24 24"><path d="'+(p?'M6 5h4v14H6zM14 5h4v14h-4z':'M8 5v14l11-7z')+'"/></svg>'}
+function dt(){try{$('ssd').textContent=new Date().toLocaleDateString('ar-u-ca-gregory-nu-latn',{weekday:'long',day:'numeric',month:'long'})}catch(e){}}
+dt();setInterval(dt,60000);
+$('ssb').addEventListener('click',function(){dt();$('ssw').style.transform='translate(0,0)'});
+setInterval(function(){if($('ss').classList.contains('on'))$('ssw').style.transform='translate('+Math.round(Math.random()*60-30)+'px,'+Math.round(Math.random()*60-30)+'px)'},60000);
+card.onclick=function(e){e.stopPropagation()};
+if(window.Android&&Android.media){
+ $('ssprev').onclick=function(){Android.mediaCmd('prev')};
+ $('ssnext').onclick=function(){Android.mediaCmd('next')};
+ $('sspl').onclick=function(){Android.mediaCmd('toggle')};
+ setInterval(function(){
+  if(!$('ss').classList.contains('on'))return;
+  var m;try{m=JSON.parse(Android.media())}catch(e){return}
+  if(m.s!='ok'){card.classList.remove('on');return}
+  card.classList.add('on');
+  $('sst1').textContent=m.t||'بدون عنوان';$('ssp').textContent=m.a||'';
+  if(m.k!=ak){ak=m.k;var a=Android.mediaArt(),el=$('ssa');if(a){el.style.backgroundImage='url(data:image/jpeg;base64,'+a+')';el.textContent=''}else{el.style.backgroundImage='';el.textContent='🎵'}}
+  $('ssi').style.width=(m.d?Math.min(100,m.p*100/m.d):0)+'%';$('sstc').textContent=fm(m.p);$('sstd').textContent=fm(m.d);
+  if(m.pl!==lp){lp=m.pl;$('sspl').innerHTML=ic(m.pl)}
+ },1000);
+}else{
+ card.classList.add('on');$('sst1').textContent='اسم الأغنية';$('ssp').textContent='اسم الفنان';$('ssi').style.width='38%';$('sstc').textContent='1:12';$('sstd').textContent='3:05';
+}
+})();
 </script>
 </body>
 </html>
