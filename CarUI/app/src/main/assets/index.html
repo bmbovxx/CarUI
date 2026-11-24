@@ -53,12 +53,12 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 .search{position:absolute;top:18px;right:18px;left:18px;height:72px;border-radius:36px;background:rgba(21,28,42,.95);display:flex;align-items:center;padding:0 28px;font-size:26px;color:var(--mu)}
 .fab{position:absolute;bottom:22px;left:22px;width:84px;height:84px;border-radius:50%;background:var(--ac);color:#04111f;font-size:40px;display:flex;align-items:center;justify-content:center}
 #ssb{font-size:20px}
-#ss{position:absolute;inset:0;background:#000;z-index:99;display:none;align-items:center;justify-content:center}
+#ss{position:absolute;top:0;right:0;bottom:0;left:0;background:#000;z-index:99;display:none;align-items:center;justify-content:center}
 #ss.on{display:flex}
 #ss svg{width:600px;height:600px}
 .ib{width:84px;height:84px;flex:none;border:0;border-radius:22px;background:var(--card);color:var(--tx);display:flex;align-items:center;justify-content:center;font-size:46px}
 .ib svg{width:44px;height:44px;fill:currentColor}.ib:active{transform:scale(.94)}
-#ap{position:absolute;inset:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
+#ap{position:absolute;top:0;right:0;bottom:0;left:0;background:var(--bg);z-index:90;display:none;flex-direction:column;padding:28px 40px}
 #ap.on{display:flex}
 .aph{display:flex;align-items:center;justify-content:space-between;font-size:36px;font-weight:700;margin-bottom:20px}
 .aph button{border:0;background:var(--card);color:var(--tx);height:72px;padding:0 36px;border-radius:22px;font-size:26px}
@@ -75,6 +75,10 @@ footer{height:130px;display:flex;align-items:center;gap:28px;padding:0 40px;bord
 .chip{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(21,28,42,.95);padding:16px 32px;border-radius:24px;font-size:28px;white-space:nowrap}
 .tm{display:flex;justify-content:space-between;direction:ltr;color:var(--mu);font-size:20px;margin-top:8px}
 .mc .top{cursor:pointer}
+.mini,.map{z-index:0}
+.msg{grid-column:1/-1;font-size:26px;color:var(--mu)}
+.me{width:30px;height:30px;border-radius:50%;background:#3ea6ff;border:5px solid #fff;box-shadow:0 0 0 0 rgba(62,166,255,.6),0 2px 8px rgba(0,0,0,.6);animation:pu 2s infinite}
+@keyframes pu{70%{box-shadow:0 0 0 26px rgba(62,166,255,0),0 2px 8px rgba(0,0,0,.6)}100%{box-shadow:0 0 0 0 rgba(62,166,255,0),0 2px 8px rgba(0,0,0,.6)}}
 </style>
 </head>
 <body>
@@ -168,10 +172,15 @@ $('ssb').onclick=function(){$('ss').classList.add('on')};
 $('ss').onclick=function(){this.classList.remove('on')};
 function esc(t){return t.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 $('appb').onclick=function(){
-  var g=$('ag'),list=[];
-  try{list=JSON.parse(window.Android.apps())}catch(e){g.innerHTML='<p style="grid-column:1/-1;font-size:26px;color:var(--mu)">هذه الميزة تعمل داخل تطبيق الأندرويد فقط</p>'}
-  if(list.length){g.innerHTML=list.map(function(a){return '<button class="app" data-p="'+esc(a.p)+'"><img src="data:image/png;base64,'+a.i+'"><span>'+esc(a.n)+'</span></button>'}).join('')}
-  $('ap').classList.add('on')};
+  var g=$('ag');
+  g.innerHTML='<p class="msg">جارٍ التحميل...</p>';
+  $('ap').classList.add('on');
+  setTimeout(function(){
+    var list=[];
+    try{list=JSON.parse(window.Android.apps())}catch(e){g.innerHTML='<p class="msg">'+(window.Android?'تعذر تحميل التطبيقات':'هذه الميزة تعمل داخل تطبيق الأندرويد فقط')+'</p>';return}
+    if(!list.length){g.innerHTML='<p class="msg">لم يتم العثور على تطبيقات</p>';return}
+    g.innerHTML=list.map(function(a){return '<button class="app" data-p="'+esc(a.p)+'"><img src="data:image/png;base64,'+a.i+'"><span>'+esc(a.n)+'</span></button>'}).join('')
+  },50)};
 $('ag').onclick=function(e){var b=e.target.closest('.app');if(b){window.Android.launch(b.dataset.p);$('ap').classList.remove('on')}};
 $('apc').onclick=function(){$('ap').classList.remove('on')};
 $('setb').onclick=function(){try{window.Android.settings()}catch(e){}};
@@ -186,12 +195,12 @@ function mk(el,full){
  L.tileLayer(T+'World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
  L.tileLayer(T+'Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
  L.tileLayer(T+'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19}).addTo(m);
- mes.push(L.circleMarker(pos,{radius:9,color:'#fff',weight:3,fillColor:'#3ea6ff',fillOpacity:1}).addTo(m));
+ mes.push(L.marker(pos,{icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[30,30],iconAnchor:[15,15]}),interactive:false,keyboard:false,opacity:0}).addTo(m));
  M.push(m);return m}
 function init(){
  var mm=$('mm');mm.innerHTML='';mk(mm,false);
  mq.querySelector('svg').style.display='none';
- var d=document.createElement('div');d.style.cssText='position:absolute;inset:0';mq.insertBefore(d,mq.firstChild);
+ var d=document.createElement('div');d.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0';mq.insertBefore(d,mq.firstChild);
  fm=mk(d,true);fm.on('dragstart',function(){follow=false});
  var rt=document.createElement('div');rt.className='chip';rt.style.display='none';mq.appendChild(rt);
  function say(t){rt.textContent=t;rt.style.display='block'}
@@ -213,10 +222,10 @@ function init(){
  s.querySelector('.go').onclick=function(){find(qi.value)};
  qi.onkeydown=function(e){if(e.key=='Enter')find(qi.value)};
  var f2=document.createElement('div');f2.className='fab fab2';f2.textContent='📍';
- f2.onclick=function(){follow=true;fm.setView(pos,16)};mq.appendChild(f2);
+ f2.onclick=function(){if(!fix){say(Android.gps&&Android.gps()=='denied'?'إذن الموقع غير مفعّل لتطبيق الشاشة':'بانتظار إشارة GPS... تأكد من تفعيل الموقع');if(!line)setTimeout(function(){rt.style.display='none'},4000);return}follow=true;fm.setView(pos,16)};mq.appendChild(f2);
  [['+',1,22],['−',-1,120]].forEach(function(z){var b=document.createElement('div');b.className='fab fab2';b.style.cssText='left:auto;right:22px;bottom:'+z[2]+'px';b.textContent=z[0];b.onclick=function(){fm.zoomBy(z[1])};mq.appendChild(b)});
  mq.querySelector('.fab').onclick=function(){if(dest)Android.navigate(String(dest[0]),String(dest[1]))};
- setInterval(function(){var r=Android.loc();if(r){var a=r.split(',');fix=true;pos=[+a[0],+a[1]];mes.forEach(function(x){x.setLatLng(pos)});M[0].setView(pos);if(follow)fm.setView(pos)}},2000);
+ setInterval(function(){var r=Android.loc();if(r){var a=r.split(',');fix=true;pos=[+a[0],+a[1]];mes.forEach(function(x){x.setLatLng(pos);x.setOpacity(1)});M[0].setView(pos);if(follow)fm.setView(pos)}},2000);
  document.addEventListener('click',function(){setTimeout(function(){M.forEach(function(x){x.invalidateSize()})},80)});
 }
 })()}
@@ -240,6 +249,13 @@ setInterval(function(){
  dur=m.d;bi.style.width=(dur?Math.min(100,m.p*100/dur):0)+'%';tc.textContent=f(m.p);td.textContent=f(dur);
  if(m.pl!==lp){lp=m.pl;pl.innerHTML=ic(m.pl)}
 },1000);
+})()}
+if(window.Android&&Android.getVol){(function(){
+var drag=false;
+v.addEventListener('input',function(){drag=true;Android.setVol(+v.value)});
+['touchend','mouseup','change'].forEach(function(e){v.addEventListener(e,function(){setTimeout(function(){drag=false},400)})});
+$('mute').onclick=function(){if(+v.value){last=v.value;v.value=0}else v.value=last||50;setV();Android.setVol(+v.value)};
+setInterval(function(){if(drag)return;var x=Android.getVol();if(x>=0&&x!=+v.value){v.value=x;setV()}},400);
 })()}
 </script>
 </body>

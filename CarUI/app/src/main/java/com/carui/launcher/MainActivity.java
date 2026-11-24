@@ -17,7 +17,9 @@ import android.media.MediaMetadata;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
+import android.media.AudioManager;
 import android.net.Uri;
+import android.view.KeyEvent;
 import android.os.SystemClock;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -63,15 +65,26 @@ public class MainActivity extends Activity {
         startLoc();
     }
 
+    private boolean locOn = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!locOn) startLoc();
+    }
+
     private void startLoc() {
+        if (locOn || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) return;
         try {
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             LocationListener ln = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location l) { last = l; }
             };
-            for (String p : lm.getProviders(true)) {
+            for (String p : new String[]{LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER}) {
+                if (!lm.getAllProviders().contains(p)) continue;
                 lm.requestLocationUpdates(p, 1000, 1, ln);
+                locOn = true;
                 Location k = lm.getLastKnownLocation(p);
                 if (k != null && last == null) last = k;
             }
@@ -94,7 +107,9 @@ public class MainActivity extends Activity {
                     JSONObject o = new JSONObject();
                     o.put("n", r.loadLabel(pm).toString());
                     o.put("p", pkg);
-                    o.put("i", icon(r.loadIcon(pm)));
+                    String ic = "";
+                    try { ic = icon(r.loadIcon(pm)); } catch (Exception x) { }
+                    o.put("i", ic);
                     out.put(o);
                 }
             } catch (Exception e) { }
@@ -199,6 +214,25 @@ public class MainActivity extends Activity {
         }
 
         @JavascriptInterface
+        public String gps() {
+            return checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ? "ok" : "denied";
+        }
+
+        @JavascriptInterface
+        public int getVol() {
+            AudioManager a = am();
+            int m = a.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            return m > 0 ? Math.round(a.getStreamVolume(AudioManager.STREAM_MUSIC) * 100f / m) : 0;
+        }
+
+        @JavascriptInterface
+        public void setVol(int pct) {
+            AudioManager a = am();
+            int m = a.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            a.setStreamVolume(AudioManager.STREAM_MUSIC, Math.round(pct * m / 100f), 0);
+        }
+
+        @JavascriptInterface
         public void launch(String pkg) {
             Intent i = getPackageManager().getLaunchIntentForPackage(pkg);
             if (i != null) {
@@ -213,6 +247,24 @@ public class MainActivity extends Activity {
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         }
+    }
+
+    private AudioManager am() {
+        return (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    @Override
+    public boolean onKeyDown(int code, KeyEvent e) {
+        if (code == KeyEvent.KEYCODE_VOLUME_UP || code == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            am().adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                code == KeyEvent.KEYCODE_VOLUME_UP ? AudioManager.ADJUST_RAISE : AudioManager.ADJUST_LOWER, 0);
+            return true;
+        }
+        if (code == KeyEvent.KEYCODE_VOLUME_MUTE) {
+            am().adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_TOGGLE_MUTE, 0);
+            return true;
+        }
+        return super.onKeyDown(code, e);
     }
 
     private String artKey = "", artB64 = "";
